@@ -33,11 +33,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
           push: true
           tags: ${{ secrets.NCR_URL }}/app1:${{ steps.commit.outputs.short }}
-      - 
-        name: deployment
-        uses: tale/kubectl-action@v1
-        with:
-          base64-kube-config: ${{ secrets.KUBE_CONFIG }}
-      - run: kubectl set image deployment/go-deployment go=${{ secrets.NCR_URL }}/app1:${{ steps.commit.outputs.short }}
+
