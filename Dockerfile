@@ -1,16 +1,13 @@
-FROM node:erbium-buster-slim              
+# Use a lightweight web server base image
+FROM nginx:alpine
 
-RUN set -eux ; \                         
-    apt-get update -y; \
-    apt-get install --no-install-recommends -y \  
-    tzdata; \
-    ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime; \
-    mkdir /html; \
-    npm install -g http-server
+# Set the working directory
+WORKDIR /usr/share/nginx/html
 
-WORKDIR /html      
-EXPOSE 80       
+# Copy the HTML file to the nginx web root
+COPY test.html .
 
-ADD ./test.html /html
+# Expose port 80 to allow external access
+EXPOSE 80
 
-CMD ["http-server", "-p80", "./"]    
+# The default command provided by the nginx base image will run nginx in the foreground
