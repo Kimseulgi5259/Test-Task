@@ -64,7 +64,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-  - host: sgkim.site # 외부에서 접근할 도메인 이름
+  - host: test.sgkim.site # 외부에서 접근할 도메인 이름
     http:
       paths:
       - path: /
