@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: test1-deployment
   labels:
-    app: testApp
+    app: test
 spec:
   replicas: 2
   selector:
@@ -46,27 +46,31 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: testApp
+    app: test
   ports:
   - protocol: TCP
     port: 80
     targetPort: 80
-
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: portname-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing # ALB를 외부에 노출
+    alb.ingress.kubernetes.io/target-type: ip         # Target 유형을 IP로 설정
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]' # ALB에서 HTTP 포트 노출
+    alb.ingress.kubernetes.io/group.name: "test-group" # ALB 그룹 이름 지정
 spec:
   ingressClassName: alb
   rules:
-  - http:
+  - host: sgkim.site # 외부에서 접근할 도메인 이름
+    http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: testApp
+            name: test1-service
             port:
-              name: http-web    
+              number: 80
