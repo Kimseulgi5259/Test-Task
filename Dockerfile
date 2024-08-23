@@ -5,7 +5,7 @@ FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 
 # Copy the HTML file to the nginx web root
-COPY test.html .
+COPY index.html .
 
 # Expose port 80 to allow external access
 EXPOSE 80
