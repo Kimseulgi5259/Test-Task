@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: test
-        image: sg-kube-test.kr.ncr.ntruss.com/app1:fef6507
+        image: sg-kube-test.kr.ncr.ntruss.com/app1:b9fddc9
         ports:
         - containerPort: 80
         livenessProbe:
