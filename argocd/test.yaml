@@ -5,7 +5,7 @@ metadata:
   labels:
     app: testApp
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: test
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: test
-        image: sg-kube-test.kr.ncr.ntruss.com/app1:b9fddc9
+        image: sg-kube-test.kr.ncr.ntruss.com/app1:117d3f9
         ports:
         - containerPort: 80
         livenessProbe:
