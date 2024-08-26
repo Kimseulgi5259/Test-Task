@@ -54,10 +54,10 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.NCR_TOKEN }}
+          token: regcred
 
       - name: Change manifest
-        run: sed -i "${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ steps.commit.outputs.short }}|" k8s/main.yaml
+        run: sed -i "${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ needs.docker.steps.commit.outputs.short }}|" k8s/main.yml
 
       - name: git push
         run: |
@@ -65,5 +65,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config credential.helper store
           git add k8s/main.yaml
-          git commit -m ":tada: Update: Image [${{ steps.commit.outputs.short }}]"
+          git commit -m ":tada: Update: Image [${{ needs.docker.steps.commit.outputs.short }}]"
           git push
