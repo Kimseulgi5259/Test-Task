@@ -54,7 +54,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          token: regcred
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Change manifest
         run: sed -i "${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ needs.docker.steps.commit.outputs.short }}|" k8s/main.yml
