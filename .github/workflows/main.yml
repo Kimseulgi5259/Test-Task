@@ -49,7 +49,7 @@ jobs:
     needs: docker
     runs-on: ubuntu-latest
     env:
-      TAG: ${{ need.docker.steps.commit.outputs.short }}
+      TAG: ${{ needs.docker.steps.commit.outputs.short }}
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -57,7 +57,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Change manifest
-        run: sed -i "${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ need.docker.steps.commit.outputs.short }}|" k8s/main.yml
+        run: sed -i "${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ needs.docker.steps.commit.outputs.short }}|" k8s/main.yml
 
       - name: git push
         run: |
@@ -65,5 +65,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config credential.helper store
           git add k8s/main.yaml
-          git commit -m ":tada: Update: Image [${{ need.docker.steps.commit.outputs.short }}]"
+          git commit -m ":tada: Update: Image [${{ needs.docker.steps.commit.outputs.short }}]"
           git push
