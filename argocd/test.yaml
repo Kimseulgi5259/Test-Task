@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: test
-        image: sg-kube-test.kr.ncr.ntruss.com/app1:612b3e8
+        image: sg-kube-test.kr.ncr.ntruss.com/app1:${{ steps.commit.outputs.short }}
         ports:
         - containerPort: 80
         livenessProbe:
