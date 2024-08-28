@@ -7,7 +7,7 @@ metadata:
 spec:
   replicas: 3
   selector:
-    matchLabels:
+    matchLabels:32c0921
       app: test
   template:
     metadata:
