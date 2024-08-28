@@ -37,8 +37,9 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ${{ secrets.NCR_URL }}/app1:${{ steps.commit.outputs.short }}
+          
     outputs:
-      TAG: ${{ steps.docker_build.outputs.tags }}
+      TAG: ${{ steps.commit.outputs.short }}
       - 
         name: deployment
         uses: tale/kubectl-action@v1        
