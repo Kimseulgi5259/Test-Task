@@ -44,7 +44,7 @@ jobs:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
       - run: |
           kubectl set image deployment/test1-deployment test=${{ secrets.NCR_URL }}/app1:${{ steps.commit.outputs.short }}
-          #kubectl rollout status deployment/test1-deployment
+          kubectl rollout status deployment/test1-deployment
       
   push:
     name: Push Manifest
