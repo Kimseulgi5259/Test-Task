@@ -60,7 +60,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Change manifest
-        run: sed -i "s|deployment/test1-deployment:[^ ]*|deployment/test1-deployment:${{ env.TAG }}|" argocd/test.yaml
+        run: sed -i "s|${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ env.TAG }}|" argocd/test.yaml
         #sed -i "s|${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ env.TAG }}|" argocd/test.yaml
              #sed -i "s|deployment/test1-deployment:[^ ]*|deployment/test1-deployment:${{ env.TAG }}|" argocd/test.yaml
 
