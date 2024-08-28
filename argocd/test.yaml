@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: test
-        image: sg-kube-test.kr.ncr.ntruss.com/app1:latest #해당 부분에 latest를 넣어보기. -> 자동으로 당겨오는 거 확인하기 위해
+        image: sg-kube-test.kr.ncr.ntruss.com/app1: #해당 부분에 latest를 넣어보기. -> 자동으로 당겨오는 거 확인하기 위해
         ports:
         - containerPort: 80
         livenessProbe:
