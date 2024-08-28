@@ -44,7 +44,8 @@ jobs:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
       - run: |
           kubectl set image deployment/test1-deployment test=${{ secrets.NCR_URL }}/app1:${{ steps.commit.outputs.short }}
-          kubectl rollout status deployment/test1-deployment
+          #kubectl rollout status deployment/test1-deployment
+          
       
   push:
     name: Push Manifest
@@ -59,7 +60,9 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Change manifest
-        run: sed -i "s|${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ env.TAG }}|" argocd/test.yaml
+        run: sed -i "s|deployment/test1-deployment:[^ ]*|deployment/test1-deployment:${{ env.TAG }}|" argocd/test.yaml
+        #sed -i "s|${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ env.TAG }}|" argocd/test.yaml
+             #sed -i "s|deployment/test1-deployment:[^ ]*|deployment/test1-deployment:${{ env.TAG }}|" argocd/test.yaml
 
       - name: git push
         run: |
