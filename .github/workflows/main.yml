@@ -46,26 +46,26 @@ jobs:
           kubectl set image deployment/test1-deployment test=${{ secrets.NCR_URL }}/app1:${{ steps.commit.outputs.short }}
           #kubectl rollout status deployment/test1-deployment
       
-  #push:
-    #name: Push Manifest
-    #needs: docker
-    #runs-on: ubuntu-latest
-    #env:
-      #TAG: ${{ needs.docker.outputs.TAG }}
-    #steps:
-     # - name: Check out code
-       # uses: actions/checkout@v4
-       # with:
-          #token: ${{ secrets.GH_TOKEN }}
+  push:
+    name: Push Manifest
+    needs: docker
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ needs.docker.outputs.TAG }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
 
-    #  - name: Change manifest
-    #    run: sed -i "s|${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ env.TAG }}|" argocd/test.yaml
+      - name: Change manifest
+        run: sed -i "s|${{ secrets.NCR_URL }}/app1:[^ ]*|${{ secrets.NCR_URL }}/app1:${{ env.TAG }}|" argocd/test.yaml
 
-    #  - name: git push
-    #    run: |
-       #   git config user.name "github-actions[bot]"
-      #    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-       #   git config credential.helper store
-       #   git add argocd/test.yaml
-       #   git commit -m ":tada: Update: Image [${{ env.TAG }}]"
-        #  git push
+      - name: git push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config credential.helper store
+          git add argocd/test.yaml
+          git commit -m ":tada: Update: Image [${{ env.TAG }}]"
+          git push
